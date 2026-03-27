@@ -1,5 +1,5 @@
 :root {
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   color: #f8f0e5;
   background:
     radial-gradient(circle at top left, rgba(114, 164, 126, 0.3), transparent 24%),
@@ -90,14 +90,15 @@ button {
   display: inline-flex;
   align-items: center;
   gap: 14px;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
   font-weight: 700;
+  letter-spacing: 0.02em;
 }
 
 .brand-mark small {
   display: block;
   color: var(--text-soft);
-  font-family: 'Manrope', sans-serif;
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.8rem;
   font-weight: 500;
 }
@@ -180,8 +181,9 @@ button {
 .hero-copy h1,
 .section-title h2 {
   margin: 0;
-  font-family: 'Space Grotesk', sans-serif;
-  line-height: 1.02;
+  font-family: 'Cormorant Garamond', serif;
+  line-height: 0.96;
+  letter-spacing: -0.03em;
 }
 
 .hero-copy h1 {
@@ -348,7 +350,8 @@ button {
 .impact-card h3,
 .spotlight-card strong {
   display: block;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
+  letter-spacing: 0.01em;
 }
 
 .ribbon-icon {
@@ -582,7 +585,7 @@ button {
 
 .gauge-center strong {
   font-size: 2rem;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: 'Cormorant Garamond', serif;
 }
 
 .sdg-copy {
