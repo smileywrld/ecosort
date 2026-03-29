@@ -196,7 +196,7 @@ button {
 .result-item span,
 .stat-card span,
 .spotlight-card span {
-  letter-spacing: 0.12em;
+  letter-spacing: 0.11em;
   text-transform: uppercase;
   color: #f1dbc3;
   font-size: 0.77rem;
