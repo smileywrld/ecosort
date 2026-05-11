@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage'
 import UploadPage from './pages/UploadPage'
 import ResultPage from './pages/ResultPage'
 import SdgPage from './pages/SdgPage'
+import GamePage from './pages/GamePage'
+import QuizPage from './pages/QuizPage'
 
 const DEFAULT_RESULT = {
   wasteType: 'Plastic Packaging',
@@ -32,6 +34,8 @@ export default function App() {
           <NavLink to="/">Home</NavLink>
           <NavLink to="/upload">Scanner</NavLink>
           <NavLink to="/result">Result</NavLink>
+          <NavLink to="/game">Game</NavLink>
+          <NavLink to="/quiz">Quiz</NavLink>
           <NavLink to="/sdg">SDG 12</NavLink>
         </nav>
       </header>
@@ -44,6 +48,8 @@ export default function App() {
             element={<UploadPage analysis={analysis} setAnalysis={setAnalysis} />}
           />
           <Route path="/result" element={<ResultPage analysis={analysis} />} />
+          <Route path="/game" element={<GamePage />} />
+          <Route path="/quiz" element={<QuizPage />} />
           <Route path="/sdg" element={<SdgPage />} />
         </Routes>
       </main>
