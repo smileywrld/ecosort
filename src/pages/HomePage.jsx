@@ -30,13 +30,20 @@ const spotlightCards = [
   },
   {
     tone: 'clay',
-    eyebrow: 'Insight',
-    title: 'See Impact',
-    text: 'Review environmental risk and disposal recommendations clearly.',
-    to: '/result',
+    eyebrow: 'Play & Learn',
+    title: '🎮 Sorting Game',
+    text: 'Race against the clock to sort waste into the right bins. Build streaks!',
+    to: '/game',
   },
   {
     tone: 'sand',
+    eyebrow: 'Challenge',
+    title: '📝 Eco Quiz',
+    text: 'Test your recycling and sustainability knowledge with 10 questions.',
+    to: '/quiz',
+  },
+  {
+    tone: 'forest',
     eyebrow: 'Context',
     title: 'Explore SDG 12',
     text: 'See how better household waste choices support global sustainability.',
@@ -111,8 +118,8 @@ export default function HomePage() {
       <section className="feature-strip">
         <SectionTitle
           eyebrow="Explore"
-          title="Three simple ways to use the experience"
-          text="The layout below mirrors the warm tile structure from your reference while staying focused on EcoSort's scanner, results, and sustainability education."
+          title="Four ways to explore the experience"
+          text="Scan waste, play the sorting game, test your knowledge with the quiz, or learn about SDG 12."
         />
         <div className="spotlight-grid">
           {spotlightCards.map((card) => (
