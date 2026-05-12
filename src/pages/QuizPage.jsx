@@ -1,4 +1,4 @@
-import { useState, useCallback } from 'react'
+import { useState, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { quizQuestions } from '../data'
 
@@ -11,30 +11,64 @@ function shuffleArray(arr) {
   return copy
 }
 
+const LEVELS = {
+  easy: { timeLimit: 60, label: 'Easy', desc: '60 seconds per question' },
+  medium: { timeLimit: 30, label: 'Medium', desc: '30 seconds per question' },
+  hard: { timeLimit: 15, label: 'Hard', desc: '15 seconds per question' },
+}
+
 export default function QuizPage() {
-  const [quizState, setQuizState] = useState('idle')
+  const [quizState, setQuizState] = useState('idle') // idle, level-select, playing, review
+  const [level, setLevel] = useState(null)
   const [questions, setQuestions] = useState([])
   const [currentQ, setCurrentQ] = useState(0)
   const [selectedOption, setSelectedOption] = useState(null)
   const [showExplanation, setShowExplanation] = useState(false)
   const [answers, setAnswers] = useState([])
-  const [animateOut, setAnimateOut] = useState(false)
+  const [timeLeft, setTimeLeft] = useState(0)
 
-  const startQuiz = useCallback(() => {
+  // Timer logic
+  useEffect(() => {
+    if (quizState !== 'playing' || showExplanation) return
+
+    const timer = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(timer)
+          handleTimeOut()
+          return 0
+        }
+        return prev - 1
+      })
+    }, 1000)
+
+    return () => clearInterval(timer)
+  }, [quizState, showExplanation, currentQ])
+
+  const startLevelSelect = () => setQuizState('level-select')
+
+  const startQuiz = useCallback((selectedLevel) => {
+    setLevel(selectedLevel)
     setQuestions(shuffleArray(quizQuestions))
     setCurrentQ(0)
     setSelectedOption(null)
     setShowExplanation(false)
     setAnswers([])
-    setAnimateOut(false)
+    setTimeLeft(LEVELS[selectedLevel].timeLimit)
     setQuizState('playing')
   }, [])
+
+  const handleTimeOut = () => {
+    setSelectedOption(-1) // -1 indicates timeout
+    setAnswers((prev) => [...prev, { questionId: question.id, selectedIndex: -1, correct: false }])
+    setShowExplanation(true)
+  }
 
   const question = questions[currentQ]
   const totalCorrect = answers.filter((a) => a.correct).length
 
   function handleOptionClick(optionIndex) {
-    if (selectedOption !== null) return
+    if (selectedOption !== null || showExplanation) return
     setSelectedOption(optionIndex)
     const correct = optionIndex === question.correctIndex
     setAnswers((prev) => [...prev, { questionId: question.id, selectedIndex: optionIndex, correct }])
@@ -46,49 +80,45 @@ export default function QuizPage() {
       setQuizState('review')
       return
     }
-    setAnimateOut(true)
-    setTimeout(() => {
-      setCurrentQ((q) => q + 1)
-      setSelectedOption(null)
-      setShowExplanation(false)
-      setAnimateOut(false)
-    }, 300)
+    setCurrentQ((q) => q + 1)
+    setSelectedOption(null)
+    setShowExplanation(false)
+    setTimeLeft(LEVELS[level].timeLimit)
   }
-
-  const pct = questions.length ? ((currentQ) / questions.length) * 100 : 0
 
   /* ── Idle ── */
   if (quizState === 'idle') {
     return (
-      <div className="page-stack">
-        <section className="quiz-intro-section">
-          <div className="quiz-intro-left">
-            <span className="eyebrow">EcoSort Quiz</span>
-            <h1 className="quiz-intro-title">Test your recycling &amp; sustainability knowledge</h1>
-            <p className="quiz-intro-text">
-              Answer 10 questions about waste management, recycling, and the UN Sustainable
-              Development Goals. Learn something new with every answer.
-            </p>
-            <button type="button" className="button button-primary game-start-btn" onClick={startQuiz}>
-              Start Quiz
-            </button>
-          </div>
-
-          <div className="quiz-intro-right">
-            <div className="intro-stat-card">
-              <strong>10</strong>
-              <p>Questions covering waste, recycling & SDGs</p>
-            </div>
-            <div className="intro-stat-card">
-              <strong>Learn</strong>
-              <p>Explanations after every answer</p>
-            </div>
-            <div className="intro-stat-card">
-              <strong>Track</strong>
-              <p>See your score and review at the end</p>
-            </div>
-          </div>
+      <div className="quiz-container">
+        <section className="quiz-intro-card">
+          <span className="section-tag">EcoSort Quiz</span>
+          <h1 className="hero-title" style={{ fontSize: '3rem' }}>Test your sustainability knowledge</h1>
+          <p className="hero-subtitle">
+            Answer 10 questions about waste management, recycling, and SDG 12. Learn something new with every answer.
+          </p>
+          <button type="button" className="button button-primary" onClick={startLevelSelect} style={{ marginTop: '24px' }}>
+            Choose Difficulty
+          </button>
         </section>
+      </div>
+    )
+  }
+
+  /* ── Level Select ── */
+  if (quizState === 'level-select') {
+    return (
+      <div className="quiz-container">
+        <div style={{ textAlign: 'center', marginTop: '40px' }}>
+          <h2>Select Difficulty</h2>
+          <div className="level-selection">
+            {Object.entries(LEVELS).map(([key, data]) => (
+              <button key={key} type="button" className="level-btn" onClick={() => startQuiz(key)}>
+                <h3>{data.label}</h3>
+                <p>{data.desc}</p>
+              </button>
+            ))}
+          </div>
+        </div>
       </div>
     )
   }
@@ -96,71 +126,20 @@ export default function QuizPage() {
   /* ── Review ── */
   if (quizState === 'review') {
     const scorePct = Math.round((totalCorrect / questions.length) * 100)
-    const grade =
-      scorePct >= 90 ? { label: 'Sustainability Expert' }
-      : scorePct >= 70 ? { label: 'Eco Advocate' }
-      : scorePct >= 50 ? { label: 'Green Learner' }
-      : { label: 'Keep Learning' }
-
     return (
-      <div className="page-stack">
-        <section className="quiz-result-section">
-          <div className="quiz-result-header">
-            <span className="result-badge">{grade.label}</span>
-            <div className="quiz-ring-container">
-              <svg className="quiz-ring" viewBox="0 0 120 120">
-                <circle cx="60" cy="60" r="52" fill="none" stroke="rgba(255,255,255,0.06)" strokeWidth="8" />
-                <circle
-                  cx="60" cy="60" r="52"
-                  fill="none"
-                  stroke="url(#quizGrad)"
-                  strokeWidth="8"
-                  strokeLinecap="round"
-                  strokeDasharray={`${scorePct * 3.267} 326.7`}
-                  transform="rotate(-90 60 60)"
-                  style={{ transition: 'stroke-dasharray 1s ease' }}
-                />
-                <defs>
-                  <linearGradient id="quizGrad" x1="0" y1="0" x2="1" y2="1">
-                    <stop offset="0%" stopColor="#f5d1ac" />
-                    <stop offset="100%" stopColor="#88a669" />
-                  </linearGradient>
-                </defs>
-              </svg>
-              <span className="quiz-ring-label">{scorePct}%</span>
-            </div>
-            <h2 className="quiz-score-text">
-              {totalCorrect} <span>/ {questions.length}</span> correct
-            </h2>
+      <div className="quiz-container">
+        <section className="quiz-intro-card" style={{ padding: '40px 0' }}>
+          <h2>Quiz Complete!</h2>
+          <div style={{ fontSize: '4rem', fontWeight: '800', color: 'var(--accent-green)', margin: '20px 0' }}>
+            {scorePct}%
           </div>
-
-          <div className="quiz-review-list">
-            <p className="eyebrow" style={{ marginBottom: '12px' }}>Answer Review</p>
-            {questions.map((q, i) => {
-              const ans = answers[i]
-              return (
-                <div className={`quiz-review-row ${ans?.correct ? 'correct' : 'wrong'}`} key={q.id}>
-                  <span className="review-number">{i + 1}</span>
-                  <div className="review-content">
-                    <p className="review-question">{q.question}</p>
-                    {!ans?.correct && (
-                      <p className="review-correct-ans">
-                        Correct: <strong>{q.options[q.correctIndex]}</strong>
-                      </p>
-                    )}
-                  </div>
-                  <span className="review-mark">{ans?.correct ? '✓' : '✗'}</span>
-                </div>
-              )
-            })}
-          </div>
-
-          <div className="game-actions-row">
-            <button type="button" className="button button-primary" onClick={startQuiz}>
-              Retake Quiz
+          <p className="hero-subtitle">You got {totalCorrect} out of {questions.length} correct on {LEVELS[level].label} difficulty.</p>
+          <div className="hero-cta-group" style={{ marginTop: '32px' }}>
+            <button type="button" className="button button-primary" onClick={startLevelSelect}>
+              Play Again
             </button>
-            <Link to="/game" className="button button-secondary">
-              Play the Game
+            <Link to="/" className="button button-secondary">
+              Back Home
             </Link>
           </div>
         </section>
@@ -169,66 +148,63 @@ export default function QuizPage() {
   }
 
   /* ── Playing ── */
+  const timeLimit = LEVELS[level].timeLimit
+  const timePct = (timeLeft / timeLimit) * 100
+
   return (
-    <div className="page-stack">
+    <div className="quiz-container">
       <section className="quiz-hud">
-        <div className="hud-item">
-          <span>Question</span>
-          <strong>{currentQ + 1} / {questions.length}</strong>
+        <div><strong>Question {currentQ + 1}</strong> / {questions.length}</div>
+        <div className="timer-bar-container">
+          <div className={`timer-bar-fill ${timeLeft <= 5 ? 'timer-danger' : ''}`} style={{ width: `${timePct}%` }}></div>
         </div>
-        <div className="hud-item">
-          <span>Score</span>
-          <strong>{totalCorrect} correct</strong>
-        </div>
+        <div style={{ width: '80px', textAlign: 'right' }}><strong>{timeLeft}s</strong></div>
       </section>
 
-      <div className="game-progress-track">
-        <div className="game-progress-fill quiz-progress-fill" style={{ width: `${pct}%` }} />
-      </div>
-
-      <section className={`quiz-question-card ${animateOut ? 'slide-out' : 'slide-in'}`}>
-        <div className="quiz-q-number">Q{currentQ + 1}</div>
-        <h3 className="quiz-q-text">{question?.question}</h3>
-
-        <div className="quiz-options">
-          {question?.options.map((opt, i) => {
-            let cls = 'quiz-option'
-            if (selectedOption !== null) {
-              if (i === question.correctIndex) cls += ' option-correct'
-              else if (i === selectedOption) cls += ' option-wrong'
-              else cls += ' option-disabled'
-            }
-            return (
-              <button
-                key={i}
-                type="button"
-                className={cls}
-                onClick={() => handleOptionClick(i)}
-                disabled={selectedOption !== null}
-              >
-                <span className="option-letter">{'ABCD'[i]}</span>
-                <span className="option-text">{opt}</span>
-              </button>
-            )
-          })}
+      <section className="quiz-question-layout">
+        <div className="quiz-image-side">
+          <img src={question?.image || '/q1_sdg12_1778560909823.png'} alt="Question Context" />
         </div>
+        
+        <div className="quiz-content-side">
+          <h3 className="quiz-q-text">{question?.question}</h3>
 
-        {showExplanation && (
-          <div className={`quiz-explanation ${answers[answers.length - 1]?.correct ? 'exp-correct' : 'exp-wrong'}`}>
-            <div className="exp-header">
-              {answers[answers.length - 1]?.correct ? 'Correct!' : 'Not quite'}
+          <div className="quiz-options">
+            {question?.options.map((opt, i) => {
+              let cls = 'quiz-option'
+              if (selectedOption !== null) {
+                if (i === question.correctIndex) cls += ' option-correct'
+                else if (i === selectedOption) cls += ' option-wrong'
+                else cls += ' option-disabled'
+              }
+              return (
+                <button
+                  key={i}
+                  type="button"
+                  className={cls}
+                  onClick={() => handleOptionClick(i)}
+                  disabled={selectedOption !== null}
+                >
+                  <span className="option-letter">{'ABCD'[i]}</span>
+                  <span className="option-text">{opt}</span>
+                </button>
+              )
+            })}
+          </div>
+
+          {showExplanation && (
+            <div className={`quiz-explanation ${answers[answers.length - 1]?.correct ? 'exp-correct' : 'exp-wrong'}`}>
+              <div className="exp-header">
+                {answers[answers.length - 1]?.correct ? 'Correct!' : (selectedOption === -1 ? 'Time\'s up!' : 'Not quite')}
+              </div>
+              <p>{question?.explanation}</p>
+              
+              <button type="button" className="button button-primary" onClick={handleNext} style={{ marginTop: '16px', width: '100%' }}>
+                {currentQ + 1 >= questions.length ? 'See Results' : 'Next Question'}
+              </button>
             </div>
-            <p>{question?.explanation}</p>
-          </div>
-        )}
-
-        {selectedOption !== null && (
-          <div style={{ textAlign: 'center', marginTop: '20px' }}>
-            <button type="button" className="button button-primary" onClick={handleNext}>
-              {currentQ + 1 >= questions.length ? 'See Results' : 'Next Question'}
-            </button>
-          </div>
-        )}
+          )}
+        </div>
       </section>
     </div>
   )

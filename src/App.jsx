@@ -24,10 +24,7 @@ export default function App() {
       <header className="site-header">
         <NavLink to="/" className="brand-mark">
           <span className="brand-orb" />
-          <span>
-            EcoSort AI
-            <small>Waste guidance for SDG 12</small>
-          </span>
+          <span>EcoSort AI</span>
         </NavLink>
 
         <nav className="site-nav">
@@ -36,7 +33,7 @@ export default function App() {
           <NavLink to="/result">Result</NavLink>
           <NavLink to="/game">Game</NavLink>
           <NavLink to="/quiz">Quiz</NavLink>
-          <NavLink to="/sdg">SDG 12</NavLink>
+          <NavLink to="/sdg" className="nav-btn">SDG 12</NavLink>
         </nav>
       </header>
 
