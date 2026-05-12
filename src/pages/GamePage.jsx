@@ -15,15 +15,25 @@ function shuffleArray(arr) {
 const TOTAL_ROUNDS = 12
 const TIME_LIMIT = 60
 
+/* Small colored dot for bins */
+function BinDot({ color }) {
+  return (
+    <span
+      className="bin-dot"
+      style={{ background: color }}
+    />
+  )
+}
+
 export default function GamePage() {
-  const [gameState, setGameState] = useState('idle') // idle | playing | finished
+  const [gameState, setGameState] = useState('idle')
   const [items, setItems] = useState([])
   const [currentIndex, setCurrentIndex] = useState(0)
   const [score, setScore] = useState(0)
   const [streak, setStreak] = useState(0)
   const [bestStreak, setBestStreak] = useState(0)
   const [timeLeft, setTimeLeft] = useState(TIME_LIMIT)
-  const [feedback, setFeedback] = useState(null) // { correct, correctBin }
+  const [feedback, setFeedback] = useState(null)
   const [shakeWrong, setShakeWrong] = useState(null)
   const [popCorrect, setPopCorrect] = useState(null)
   const [history, setHistory] = useState([])
@@ -46,7 +56,6 @@ export default function GamePage() {
     setGameState('playing')
   }, [])
 
-  // Timer
   useEffect(() => {
     if (gameState !== 'playing') return
     timerRef.current = setInterval(() => {
@@ -64,7 +73,6 @@ export default function GamePage() {
 
   function handleBinClick(binId) {
     if (gameState !== 'playing' || !currentItem || feedback) return
-
     const correct = currentItem.bin === binId
     const binLabel = gameBins.find((b) => b.id === currentItem.bin)?.label || currentItem.bin
 
@@ -102,73 +110,81 @@ export default function GamePage() {
   const timePct = (timeLeft / TIME_LIMIT) * 100
   const finalPct = items.length ? Math.round((history.filter((h) => h.correct).length / items.length) * 100) : 0
 
-  /* ─── Idle screen ─── */
+  /* ─── Idle ─── */
   if (gameState === 'idle') {
     return (
       <div className="page-stack">
-        <section className="glass-card game-intro-card">
-          <SectionTitle
-            eyebrow="EcoSort Game"
-            title="Sort the waste into the correct bins!"
-            text="Test your waste sorting knowledge with this fast-paced sorting challenge. You'll be shown waste items one by one — tap the correct bin before time runs out."
-          />
+        <section className="game-intro-section">
+          <div className="game-intro-left">
+            <span className="eyebrow">EcoSort Game</span>
+            <h1 className="game-intro-title">Sort the waste.<br />Beat the clock.</h1>
+            <p className="game-intro-text">
+              Test your waste sorting knowledge in a fast-paced challenge.
+              You'll see waste items one by one — pick the right bin before time runs out.
+            </p>
+            <button type="button" className="button button-primary game-start-btn" onClick={startGame}>
+              Start Game
+            </button>
+          </div>
 
-          <div className="game-rules">
-            <div className="rule-item">
-              <span className="rule-icon">🎯</span>
+          <div className="game-intro-right">
+            <div className="intro-rule-card">
+              <div className="intro-rule-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><path d="m9 12 2 2 4-4"/></svg>
+              </div>
               <div>
                 <strong>Sort {TOTAL_ROUNDS} items</strong>
                 <p>Each correct sort earns 10 points</p>
               </div>
             </div>
-            <div className="rule-item">
-              <span className="rule-icon">🔥</span>
+            <div className="intro-rule-card">
+              <div className="intro-rule-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+              </div>
               <div>
                 <strong>Build streaks</strong>
                 <p>Consecutive correct answers earn bonus points</p>
               </div>
             </div>
-            <div className="rule-item">
-              <span className="rule-icon">⏱️</span>
+            <div className="intro-rule-card">
+              <div className="intro-rule-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+              </div>
               <div>
                 <strong>{TIME_LIMIT} second timer</strong>
                 <p>Sort as many as you can before time is up</p>
               </div>
             </div>
-            <div className="rule-item">
-              <span className="rule-icon">🏆</span>
+            <div className="intro-rule-card">
+              <div className="intro-rule-icon">
+                <svg width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5C6 4 6 4.5 6 6m12 3h1.5a2.5 2.5 0 0 0 0-5C18 4 18 4.5 18 6m-6-2v14m-4 0h8"/></svg>
+              </div>
               <div>
                 <strong>Aim for the top</strong>
                 <p>Perfect score: {TOTAL_ROUNDS * 10 + 30}+ points</p>
               </div>
             </div>
           </div>
-
-          <div className="hero-actions" style={{ justifyContent: 'center' }}>
-            <button type="button" className="button button-primary game-start-btn" onClick={startGame}>
-              🎮 Start Game
-            </button>
-          </div>
         </section>
       </div>
     )
   }
 
-  /* ─── Finished screen ─── */
+  /* ─── Finished ─── */
   if (gameState === 'finished') {
     const grade =
-      finalPct >= 90 ? { label: 'Eco Champion 🏆', tone: 'champion' }
-      : finalPct >= 70 ? { label: 'Green Warrior 💚', tone: 'warrior' }
-      : finalPct >= 50 ? { label: 'Eco Learner 🌱', tone: 'learner' }
-      : { label: 'Keep Trying 🔄', tone: 'beginner' }
+      finalPct >= 90 ? { label: 'Eco Champion', tone: 'champion' }
+      : finalPct >= 70 ? { label: 'Green Warrior', tone: 'warrior' }
+      : finalPct >= 50 ? { label: 'Eco Learner', tone: 'learner' }
+      : { label: 'Keep Trying', tone: 'beginner' }
 
     return (
       <div className="page-stack">
-        <section className="glass-card game-result-card">
+        <section className="game-result-section">
           <div className="game-result-header">
-            <span className="game-result-badge">{grade.label}</span>
-            <h2 className="game-result-score">{score}</h2>
-            <p className="game-result-subtitle">points scored</p>
+            <span className="result-badge">{grade.label}</span>
+            <h2 className="game-score-big">{score}</h2>
+            <p className="game-score-sub">points scored</p>
           </div>
 
           <div className="game-stats-row">
@@ -192,26 +208,29 @@ export default function GamePage() {
 
           <div className="game-history">
             <p className="eyebrow" style={{ marginBottom: '12px' }}>Round Summary</p>
-            {history.map((h, i) => (
-              <div className={`history-row ${h.correct ? 'correct' : 'wrong'}`} key={i}>
-                <span className="history-emoji">{h.item.emoji}</span>
-                <span className="history-name">{h.item.name}</span>
-                <span className="history-result">{h.correct ? '✓' : '✗'}</span>
-                {!h.correct && (
-                  <span className="history-hint">
-                    → {gameBins.find((b) => b.id === h.item.bin)?.label}
-                  </span>
-                )}
-              </div>
-            ))}
+            {history.map((h, i) => {
+              const binColor = gameBins.find((b) => b.id === h.item.bin)?.color
+              return (
+                <div className={`history-row ${h.correct ? 'correct' : 'wrong'}`} key={i}>
+                  <BinDot color={binColor} />
+                  <span className="history-name">{h.item.name}</span>
+                  <span className="history-result">{h.correct ? '✓' : '✗'}</span>
+                  {!h.correct && (
+                    <span className="history-hint">
+                      → {gameBins.find((b) => b.id === h.item.bin)?.label}
+                    </span>
+                  )}
+                </div>
+              )
+            })}
           </div>
 
-          <div className="hero-actions" style={{ justifyContent: 'center' }}>
+          <div className="game-actions-row">
             <button type="button" className="button button-primary" onClick={startGame}>
-              🔄 Play Again
+              Play Again
             </button>
             <Link to="/quiz" className="button button-secondary">
-              📝 Try the Quiz
+              Try the Quiz
             </Link>
           </div>
         </section>
@@ -219,7 +238,7 @@ export default function GamePage() {
     )
   }
 
-  /* ─── Playing screen ─── */
+  /* ─── Playing ─── */
   return (
     <div className="page-stack">
       <section className="game-hud">
@@ -233,37 +252,32 @@ export default function GamePage() {
         </div>
         <div className="hud-item hud-streak">
           <span>Streak</span>
-          <strong>{streak > 0 ? `🔥 ${streak}` : '—'}</strong>
+          <strong>{streak > 0 ? `${streak}x` : '—'}</strong>
         </div>
-        <div className={`hud-item hud-timer ${timeLeft <= 10 ? 'hud-danger' : ''}`}>
+        <div className={`hud-item ${timeLeft <= 10 ? 'hud-danger' : ''}`}>
           <span>Time</span>
           <strong>{timeLeft}s</strong>
         </div>
       </section>
 
-      {/* Progress bar */}
       <div className="game-progress-track">
         <div className="game-progress-fill" style={{ width: `${pct}%` }} />
       </div>
-
-      {/* Timer bar */}
       <div className="game-timer-track">
-        <div
-          className={`game-timer-fill ${timeLeft <= 10 ? 'timer-danger' : ''}`}
-          style={{ width: `${timePct}%` }}
-        />
+        <div className={`game-timer-fill ${timeLeft <= 10 ? 'timer-danger' : ''}`} style={{ width: `${timePct}%` }} />
       </div>
 
       {/* Current item */}
       <section className="game-item-showcase">
         <div className={`game-item-card ${feedback ? (feedback.correct ? 'flash-correct' : 'flash-wrong') : ''}`}>
-          <span className="game-item-emoji">{currentItem?.emoji}</span>
+          <span className="game-item-initial" style={{ '--item-color': gameBins.find(b => b.id === currentItem?.bin)?.color || '#fff' }}>
+            {currentItem?.name?.charAt(0)}
+          </span>
           <h3 className="game-item-name">{currentItem?.name}</h3>
+          <p className="game-item-hint">Which bin does this belong to?</p>
           {feedback && (
             <div className={`game-feedback ${feedback.correct ? 'fb-correct' : 'fb-wrong'}`}>
-              {feedback.correct
-                ? '✓ Correct!'
-                : `✗ Wrong — goes in ${feedback.correctBin}`}
+              {feedback.correct ? 'Correct!' : `Wrong — goes in ${feedback.correctBin}`}
             </div>
           )}
         </div>
@@ -280,7 +294,7 @@ export default function GamePage() {
             onClick={() => handleBinClick(bin.id)}
             disabled={!!feedback}
           >
-            <span className="bin-emoji">{bin.emoji}</span>
+            <BinDot color={bin.color} />
             <span className="bin-label">{bin.label}</span>
           </button>
         ))}

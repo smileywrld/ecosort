@@ -112,7 +112,7 @@ export function inferWasteFromFilename(filename = '') {
     return wasteProfiles.textile
   }
 
-  // If nothing matched, it is NOT recognized as waste — don't default to plastic
+  // If nothing matched, it is NOT recognized as waste
   return wasteProfiles.not_waste
 }
 
@@ -203,7 +203,7 @@ export const quizQuestions = [
     ],
     correctIndex: 1,
     explanation:
-      'In landfills, food waste decomposes without oxygen, producing methane — a greenhouse gas 25x more potent than CO₂.',
+      'In landfills, food waste decomposes without oxygen, producing methane — a greenhouse gas 25x more potent than CO2.',
   },
   {
     id: 10,
@@ -222,37 +222,37 @@ export const quizQuestions = [
 
 /* ── Game Data ──────────────────────────────────────────── */
 export const gameItems = [
-  { name: 'Plastic Bottle', emoji: '🧴', bin: 'plastic' },
-  { name: 'Banana Peel', emoji: '🍌', bin: 'organic' },
-  { name: 'Soda Can', emoji: '🥫', bin: 'metal' },
-  { name: 'Glass Jar', emoji: '🫙', bin: 'glass' },
-  { name: 'Newspaper', emoji: '📰', bin: 'paper' },
-  { name: 'Old Phone', emoji: '📱', bin: 'ewaste' },
-  { name: 'Plastic Bag', emoji: '🛍️', bin: 'plastic' },
-  { name: 'Apple Core', emoji: '🍎', bin: 'organic' },
-  { name: 'Tin Foil', emoji: '🪙', bin: 'metal' },
-  { name: 'Wine Bottle', emoji: '🍾', bin: 'glass' },
-  { name: 'Cardboard Box', emoji: '📦', bin: 'paper' },
-  { name: 'Battery', emoji: '🔋', bin: 'ewaste' },
-  { name: 'Yoghurt Cup', emoji: '🥛', bin: 'plastic' },
-  { name: 'Egg Shells', emoji: '🥚', bin: 'organic' },
-  { name: 'Aluminium Can', emoji: '🥤', bin: 'metal' },
-  { name: 'Mirror Shard', emoji: '🪞', bin: 'glass' },
-  { name: 'Magazine', emoji: '📖', bin: 'paper' },
-  { name: 'USB Cable', emoji: '🔌', bin: 'ewaste' },
-  { name: 'Straw', emoji: '🥤', bin: 'plastic' },
-  { name: 'Tea Leaves', emoji: '🍵', bin: 'organic' },
-  { name: 'Screw Bolt', emoji: '🔩', bin: 'metal' },
-  { name: 'Light Bulb', emoji: '💡', bin: 'glass' },
-  { name: 'Envelope', emoji: '✉️', bin: 'paper' },
-  { name: 'Old Charger', emoji: '🔌', bin: 'ewaste' },
+  { name: 'Plastic Bottle', bin: 'plastic' },
+  { name: 'Banana Peel', bin: 'organic' },
+  { name: 'Soda Can', bin: 'metal' },
+  { name: 'Glass Jar', bin: 'glass' },
+  { name: 'Newspaper', bin: 'paper' },
+  { name: 'Old Phone', bin: 'ewaste' },
+  { name: 'Plastic Bag', bin: 'plastic' },
+  { name: 'Apple Core', bin: 'organic' },
+  { name: 'Tin Foil', bin: 'metal' },
+  { name: 'Wine Bottle', bin: 'glass' },
+  { name: 'Cardboard Box', bin: 'paper' },
+  { name: 'Battery', bin: 'ewaste' },
+  { name: 'Yoghurt Cup', bin: 'plastic' },
+  { name: 'Egg Shells', bin: 'organic' },
+  { name: 'Aluminium Can', bin: 'metal' },
+  { name: 'Glass Vase', bin: 'glass' },
+  { name: 'Magazine', bin: 'paper' },
+  { name: 'USB Cable', bin: 'ewaste' },
+  { name: 'Food Wrapper', bin: 'plastic' },
+  { name: 'Tea Leaves', bin: 'organic' },
+  { name: 'Screw Bolt', bin: 'metal' },
+  { name: 'Light Bulb', bin: 'glass' },
+  { name: 'Envelope', bin: 'paper' },
+  { name: 'Old Charger', bin: 'ewaste' },
 ]
 
 export const gameBins = [
-  { id: 'plastic', label: 'Plastic', emoji: '♳', color: '#3b82f6' },
-  { id: 'organic', label: 'Organic', emoji: '🌱', color: '#22c55e' },
-  { id: 'metal', label: 'Metal', emoji: '⚙️', color: '#a1a1aa' },
-  { id: 'glass', label: 'Glass', emoji: '🫙', color: '#8b5cf6' },
-  { id: 'paper', label: 'Paper', emoji: '📄', color: '#f59e0b' },
-  { id: 'ewaste', label: 'E-Waste', emoji: '⚡', color: '#ef4444' },
+  { id: 'plastic', label: 'Plastic', color: '#3b82f6' },
+  { id: 'organic', label: 'Organic', color: '#22c55e' },
+  { id: 'metal', label: 'Metal', color: '#94a3b8' },
+  { id: 'glass', label: 'Glass', color: '#8b5cf6' },
+  { id: 'paper', label: 'Paper', color: '#f59e0b' },
+  { id: 'ewaste', label: 'E-Waste', color: '#ef4444' },
 ]

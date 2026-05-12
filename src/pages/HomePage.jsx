@@ -31,14 +31,14 @@ const spotlightCards = [
   {
     tone: 'clay',
     eyebrow: 'Play & Learn',
-    title: '🎮 Sorting Game',
+    title: 'Sorting Game',
     text: 'Race against the clock to sort waste into the right bins. Build streaks!',
     to: '/game',
   },
   {
     tone: 'sand',
     eyebrow: 'Challenge',
-    title: '📝 Eco Quiz',
+    title: 'Eco Quiz',
     text: 'Test your recycling and sustainability knowledge with 10 questions.',
     to: '/quiz',
   },
