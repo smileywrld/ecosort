@@ -1,137 +1,90 @@
 import { Link } from 'react-router-dom'
 import SectionTitle from '../components/SectionTitle'
 
-const quickActions = [
-  {
-    title: 'Smart Detection',
-    text: 'Scan a waste item and get a clear category before you dispose of it.',
-  },
-  {
-    title: 'Home Guidance',
-    text: 'Understand the right bin, drop-off path, or safer alternative in seconds.',
-  },
-  {
-    title: 'Eco Habits',
-    text: 'Learn small changes that reduce contamination and improve recycling rates.',
-  },
-  {
-    title: 'SDG 12 Focus',
-    text: 'Connect everyday sorting choices with responsible consumption goals.',
-  },
-]
-
-const spotlightCards = [
-  {
-    tone: 'sage',
-    eyebrow: 'Quick start',
-    title: 'Scan & Sort',
-    text: 'Upload a photo and move from confusion to action in one flow.',
-    to: '/upload',
-  },
-  {
-    tone: 'clay',
-    eyebrow: 'Play & Learn',
-    title: 'Sorting Game',
-    text: 'Race against the clock to sort waste into the right bins. Build streaks!',
-    to: '/game',
-  },
-  {
-    tone: 'sand',
-    eyebrow: 'Challenge',
-    title: 'Eco Quiz',
-    text: 'Test your recycling and sustainability knowledge with 10 questions.',
-    to: '/quiz',
-  },
-  {
-    tone: 'forest',
-    eyebrow: 'Context',
-    title: 'Explore SDG 12',
-    text: 'See how better household waste choices support global sustainability.',
-    to: '/sdg',
-  },
-]
-
 export default function HomePage() {
   return (
-    <div className="page-stack">
-      <section className="hero-card hero-card-eco">
-        <div className="hero-copy">
-          <p className="eyebrow">Nature-inspired waste guidance</p>
-          <h1>Sort waste with more calm, clarity, and confidence.</h1>
-          <p className="hero-text">
-            EcoSort AI brings a softer, simpler path to responsible disposal. Scan
-            an item, understand what it is, and choose the next step with less
-            guesswork.
+    <div className="portfolio-page">
+      <section className="portfolio-hero">
+        <span className="availability-badge"><span className="dot"></span> available for work</span>
+        <h1 className="hero-title">
+          EcoSort AI <strong>crafting a greener</strong> online presence
+        </h1>
+        <p className="hero-subtitle">
+          Beautifully designed, easy-to-use tools that help you understand and sort waste with confidence.
+        </p>
+        <div className="hero-cta-group">
+          <Link to="/upload" className="btn-dark">Scan Waste</Link>
+          <Link to="/sdg" className="btn-light">Explore SDG</Link>
+        </div>
+      </section>
+
+      <section className="portfolio-gallery">
+        <div className="gallery-track">
+          <div className="gallery-item small"><img src="/q4_decomposition_1778561031445.png" alt="waste" /></div>
+          <div className="gallery-item medium"><img src="/q1_sdg12_1778560909823.png" alt="SDG" /></div>
+          <div className="gallery-item large main-image"><img src="/q2_plastic_rate_1778560964687.png" alt="Plastic" /></div>
+          <div className="gallery-item medium"><img src="/q5_compost_1778561485563.png" alt="Compost" /></div>
+          <div className="gallery-item small"><img src="/q3_battery_bin_1778561000495.png" alt="Battery" /></div>
+        </div>
+      </section>
+
+      <section className="portfolio-about-stats">
+        <div className="bio-card">
+          <h2>I'm EcoSort</h2>
+          <p>
+            An AI guide with a passion for environmental impact. I create intuitive, fast experiences that help households and businesses sort waste correctly. 
+            With a focus on SDG 12, I strike the optimal balance of machine learning and user-friendly design to ensure every item finds the right bin.
           </p>
-          <div className="hero-actions">
-            <Link to="/upload" className="button button-primary">
-              Open Scanner
-            </Link>
-            <Link to="/sdg" className="button button-secondary">
-              Why It Matters
-            </Link>
+          <div className="bio-avatar">
+            <Link to="/upload" className="btn-full-width">Try Scanner</Link>
           </div>
         </div>
 
-        <div className="hero-botanical" aria-hidden="true">
-          <span className="leaf leaf-large" />
-          <span className="leaf leaf-medium" />
-          <span className="leaf leaf-small" />
-          <span className="leaf leaf-tall" />
-          <span className="leaf leaf-mini" />
+        <div className="stats-grid">
+          <div className="stat-box">
+            <div className="stat-top"><h3>10+</h3><span>Categories</span></div>
+            <p>From plastics to organic compost, I can identify the most common household waste.</p>
+          </div>
+          <div className="stat-box">
+            <div className="stat-top"><h3>95%</h3><span>Accuracy</span></div>
+            <p>High success rate in directing waste to correct recycling or disposal streams.</p>
+          </div>
+          <div className="stat-box">
+            <div className="stat-top"><h3>SDG 12</h3><span>Aligned</span></div>
+            <p>Directly supporting global goals for responsible consumption and production.</p>
+          </div>
+          <div className="stat-box">
+            <div className="stat-top"><h3>100%</h3><span>Free</span></div>
+            <p>Accessible tools for everyone to make better environmental choices daily.</p>
+          </div>
         </div>
       </section>
 
-      <section className="feature-ribbon">
-        {quickActions.map((item) => (
-          <article className="ribbon-card" key={item.title}>
-            <div className="ribbon-icon" />
-            <strong>{item.title}</strong>
-            <p>{item.text}</p>
-          </article>
-        ))}
-      </section>
-
-      <section className="content-grid content-grid-balanced">
-        <div className="glass-card textured-card">
-          <SectionTitle
-            eyebrow="What EcoSort does"
-            title="A practical guide for people who want to dispose of waste better"
-            text="The app is built for quick household decisions. Instead of abstract recycling advice, you get a direct explanation of what the item is, what to do with it, and why that choice matters."
-          />
+      <section className="portfolio-projects">
+        <div className="projects-header">
+          <span className="section-tag">Interactive Features</span>
+          <h2>Ways to engage with EcoSort</h2>
         </div>
-
-        <div className="sdg-highlight warm-panel">
-          <p className="eyebrow">Waste to impact</p>
-          <h3>Better sorting supports cleaner systems</h3>
-          <p>
-            Correct separation protects recycling streams, reduces contamination,
-            and helps communities recover more materials instead of sending them to
-            landfill.
-          </p>
-          <Link to="/sdg" className="text-link">
-            Explore the SDG connection
-          </Link>
-        </div>
-      </section>
-
-      <section className="feature-strip">
-        <SectionTitle
-          eyebrow="Explore"
-          title="Four ways to explore the experience"
-          text="Scan waste, play the sorting game, test your knowledge with the quiz, or learn about SDG 12."
-        />
-        <div className="spotlight-grid">
-          {spotlightCards.map((card) => (
-            <article className={`spotlight-card ${card.tone}`} key={card.title}>
-              <span>{card.eyebrow}</span>
-              <strong>{card.title}</strong>
-              <p>{card.text}</p>
-              <Link to={card.to} className="text-link">
-                Open page
-              </Link>
-            </article>
-          ))}
+        
+        <div className="projects-grid">
+          <div className="project-card">
+            <div className="project-img-wrapper"><img src="/q2_plastic_rate_1778560964687.png" alt="Game"/></div>
+            <div className="project-info">
+              <span className="status-tag">Fun & Fast</span>
+              <h3>Sorting Game</h3>
+              <p>Race against the clock</p>
+              <Link to="/game" className="stretched-link"></Link>
+            </div>
+          </div>
+          <div className="project-card">
+            <div className="project-img-wrapper"><img src="/q1_sdg12_1778560909823.png" alt="Quiz"/></div>
+            <div className="project-info">
+              <span className="status-tag">Educational</span>
+              <h3>Eco Quiz</h3>
+              <p>Test your sustainability knowledge</p>
+              <Link to="/quiz" className="stretched-link"></Link>
+            </div>
+          </div>
         </div>
       </section>
     </div>
