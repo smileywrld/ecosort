@@ -1,6 +1,7 @@
 import { useState, useCallback, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { quizQuestions } from '../data'
+import { sdgImage } from '../assets'
 
 function shuffleArray(arr) {
   const copy = [...arr]
@@ -163,7 +164,7 @@ export default function QuizPage() {
 
       <section className="quiz-question-layout">
         <div className="quiz-image-side">
-          <img src={question?.image || '/q1_sdg12_1778560909823.png'} alt="Question Context" />
+          <img src={question?.image || sdgImage} alt="Question Context" />
         </div>
         
         <div className="quiz-content-side">

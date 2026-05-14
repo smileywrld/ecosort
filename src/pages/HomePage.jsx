@@ -1,5 +1,12 @@
 import { Link } from 'react-router-dom'
 import SectionTitle from '../components/SectionTitle'
+import {
+  batteryBinImage,
+  compostImage,
+  decompositionImage,
+  plasticRateImage,
+  sdgImage,
+} from '../assets'
 
 export default function HomePage() {
   return (
@@ -20,11 +27,11 @@ export default function HomePage() {
 
       <section className="portfolio-gallery">
         <div className="gallery-track">
-          <div className="gallery-item small"><img src="/q4_decomposition_1778561031445.png" alt="waste" /></div>
-          <div className="gallery-item medium"><img src="/q1_sdg12_1778560909823.png" alt="SDG" /></div>
-          <div className="gallery-item large main-image"><img src="/q2_plastic_rate_1778560964687.png" alt="Plastic" /></div>
-          <div className="gallery-item medium"><img src="/q5_compost_1778561485563.png" alt="Compost" /></div>
-          <div className="gallery-item small"><img src="/q3_battery_bin_1778561000495.png" alt="Battery" /></div>
+          <div className="gallery-item small"><img src={decompositionImage} alt="waste" /></div>
+          <div className="gallery-item medium"><img src={sdgImage} alt="SDG" /></div>
+          <div className="gallery-item large main-image"><img src={plasticRateImage} alt="Plastic" /></div>
+          <div className="gallery-item medium"><img src={compostImage} alt="Compost" /></div>
+          <div className="gallery-item small"><img src={batteryBinImage} alt="Battery" /></div>
         </div>
       </section>
 
@@ -68,7 +75,7 @@ export default function HomePage() {
         
         <div className="projects-grid">
           <div className="project-card">
-            <div className="project-img-wrapper"><img src="/q2_plastic_rate_1778560964687.png" alt="Game"/></div>
+            <div className="project-img-wrapper"><img src={plasticRateImage} alt="Game"/></div>
             <div className="project-info">
               <span className="status-tag">Fun & Fast</span>
               <h3>Sorting Game</h3>
@@ -77,7 +84,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="project-card">
-            <div className="project-img-wrapper"><img src="/q1_sdg12_1778560909823.png" alt="Quiz"/></div>
+            <div className="project-img-wrapper"><img src={sdgImage} alt="Quiz"/></div>
             <div className="project-info">
               <span className="status-tag">Educational</span>
               <h3>Eco Quiz</h3>

@@ -1,3 +1,11 @@
+import {
+  batteryBinImage,
+  compostImage,
+  decompositionImage,
+  plasticRateImage,
+  sdgImage,
+} from './assets'
+
 export const wasteProfiles = {
   plastic: {
     wasteType: 'Plastic Bottle',
@@ -125,7 +133,7 @@ export const quizQuestions = [
     correctIndex: 1,
     explanation:
       'SDG 12 — Responsible Consumption and Production — aims to ensure sustainable consumption and production patterns worldwide.',
-    image: '/q1_sdg12_1778560909823.png',
+    image: sdgImage,
   },
   {
     id: 2,
@@ -134,7 +142,7 @@ export const quizQuestions = [
     correctIndex: 0,
     explanation:
       'Only about 9% of all plastic ever produced has been recycled. The rest ends up in landfills, incinerated, or in the environment.',
-    image: '/q2_plastic_rate_1778560964687.png',
+    image: plasticRateImage,
   },
   {
     id: 3,
@@ -143,7 +151,7 @@ export const quizQuestions = [
     correctIndex: 2,
     explanation:
       'Batteries contain hazardous chemicals and must be taken to special e-waste or battery collection points.',
-    image: '/q3_battery_bin_1778561000495.png',
+    image: batteryBinImage,
   },
   {
     id: 4,
@@ -152,7 +160,7 @@ export const quizQuestions = [
     correctIndex: 3,
     explanation:
       'A plastic bottle can take 450 years or more to decompose, leaching harmful chemicals into soil and water in the process.',
-    image: '/q4_decomposition_1778561031445.png',
+    image: decompositionImage,
   },
   {
     id: 5,
@@ -166,7 +174,7 @@ export const quizQuestions = [
     correctIndex: 3,
     explanation:
       'Composting reduces methane emissions, creates nutrient-rich soil, and diverts waste from overburdened landfills.',
-    image: '/q5_compost_1778561485563.png',
+    image: compostImage,
   },
   {
     id: 6,
@@ -175,7 +183,7 @@ export const quizQuestions = [
     correctIndex: 3,
     explanation:
       'Aluminum can be recycled infinitely without losing quality, making it one of the most sustainable packaging materials.',
-    image: '/q2_plastic_rate_1778560964687.png',
+    image: plasticRateImage,
   },
   {
     id: 7,
@@ -189,7 +197,7 @@ export const quizQuestions = [
     correctIndex: 1,
     explanation:
       'A circular economy keeps resources in use for as long as possible through reuse, repair, and recycling — minimising waste.',
-    image: '/q1_sdg12_1778560909823.png',
+    image: sdgImage,
   },
   {
     id: 8,
@@ -198,7 +206,7 @@ export const quizQuestions = [
     correctIndex: 2,
     explanation:
       'Recycling one tonne of paper saves approximately 17 trees and 26,000 litres of water.',
-    image: '/q5_compost_1778561485563.png',
+    image: compostImage,
   },
   {
     id: 9,
@@ -212,7 +220,7 @@ export const quizQuestions = [
     correctIndex: 1,
     explanation:
       'In landfills, food waste decomposes without oxygen, producing methane — a greenhouse gas 25x more potent than CO2.',
-    image: '/q4_decomposition_1778561031445.png',
+    image: decompositionImage,
   },
   {
     id: 10,
@@ -226,7 +234,7 @@ export const quizQuestions = [
     correctIndex: 1,
     explanation:
       'The waste hierarchy puts "Refuse" at the top. Avoiding unnecessary consumption has a bigger impact than recycling.',
-    image: '/q1_sdg12_1778560909823.png',
+    image: sdgImage,
   },
 ]
 
