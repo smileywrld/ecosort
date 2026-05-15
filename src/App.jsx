@@ -6,6 +6,7 @@ import ResultPage from './pages/ResultPage'
 import SdgPage from './pages/SdgPage'
 import GamePage from './pages/GamePage'
 import QuizPage from './pages/QuizPage'
+import { logoMark } from './assets'
 
 const DEFAULT_RESULT = {
   wasteType: 'Plastic Packaging',
@@ -23,7 +24,7 @@ export default function App() {
     <div className="app-shell">
       <header className="site-header">
         <NavLink to="/" className="brand-mark">
-          <span className="brand-orb" />
+          <img src={logoMark} alt="EcoSort AI logo" className="brand-logo" />
           <span>EcoSort AI</span>
         </NavLink>
 

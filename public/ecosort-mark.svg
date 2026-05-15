@@ -1,0 +1,18 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="ecosort-bg" x1="16" y1="12" x2="112" y2="116" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#A8C48A"/>
+      <stop offset="1" stop-color="#315B3C"/>
+    </linearGradient>
+    <linearGradient id="ecosort-leaf" x1="44" y1="34" x2="87" y2="84" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#FFFFFF"/>
+      <stop offset="1" stop-color="#E8F5DF"/>
+    </linearGradient>
+  </defs>
+  <rect x="8" y="8" width="112" height="112" rx="30" fill="url(#ecosort-bg)"/>
+  <circle cx="97" cy="34" r="12" fill="#F6E7C7" fill-opacity="0.9"/>
+  <path d="M66.875 31C50.283 31 37.191 42.421 34.344 57.171H28L38.594 71.609L49.187 57.171H42.782C45.508 48.207 54.189 41.75 64.75 41.75C76.866 41.75 86.907 50.37 88.975 61.781H99.875C97.711 44.291 83.06 31 66.875 31Z" fill="white"/>
+  <path d="M61.375 48.5C49.746 52.611 43 63.213 43 75.766C43 78.006 43.219 80.188 43.633 82.297C56.245 80.382 66.4 70.573 68.781 58.078C69.323 55.237 69.396 52.492 69 49.922C66.537 48.902 63.962 48.448 61.375 48.5Z" fill="url(#ecosort-leaf)"/>
+  <path d="M55.687 60.953C60.62 62.752 64.834 66.098 67.657 70.484C70.48 74.871 71.76 80.063 71.302 85.26" stroke="#315B3C" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M89.531 78.813C86.808 87.827 77.818 94.438 67.188 94.438C55.055 94.438 44.999 85.794 42.957 74.359H32.031C34.171 91.903 48.85 105.188 65.031 105.188C81.636 105.188 94.735 93.757 97.566 78.984H104L93.406 64.563L82.813 78.984H89.531V78.813Z" fill="white"/>
+</svg>

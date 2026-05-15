@@ -48,12 +48,11 @@ button { font: inherit; cursor: pointer; }
   font-size: 1.1rem;
 }
 
-.brand-orb {
-  width: 28px;
-  height: 28px;
-  border-radius: 8px;
-  background: linear-gradient(135deg, var(--accent-green), #5f7f44);
-  box-shadow: 0 8px 20px rgba(136, 166, 105, 0.28);
+.brand-logo {
+  width: 32px;
+  height: 32px;
+  display: block;
+  flex-shrink: 0;
 }
 
 .site-nav {
